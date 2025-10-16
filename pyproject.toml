@@ -1,0 +1,121 @@
+[project]
+name = "tortoise-plastron"
+dynamic = ["version"]
+description = "Schema migrations as code for Tortoise ORM."
+authors = [{name="tsifrer", email="3967564+tsifrer@users.noreply.github.com"}]
+license = "Apache-2.0"
+license-files = ["LICEN[CS]E*"]
+readme = "README.md"
+keywords = ["migrate", "Tortoise-ORM", "TortoiseORM", "plastron", "asyncpg", "postgres", "migration"]
+requires-python = ">=3.11"
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Intended Audience :: Developers",
+    "Topic :: Database",
+]
+dependencies = [
+  "tortoise-orm (>=0.25.1,<1.0.0)",
+  "asyncclick (>=8.3.0.7,<9.0.0)",
+  "aiofiles>=25.1.0",
+  "black>=25.9.0",
+  "python-ulid>=3.1.0",
+]
+
+[project.urls]
+homepage = "https://github.com/blockanalitica/plastron"
+repository = "https://github.com/blockanalitica/plastron.git"
+documentation = "https://github.com/blockanalitica/plastron"
+issues = "https://github.com/blockanalitica/plastron/issues"
+
+[project.optional-dependencies]
+asyncpg = ["asyncpg"]
+
+[dependency-groups]
+dev = [
+    "pytest-asyncio>=1.2.0",
+    "pytest-freezer>=0.4.9",
+    "ruff==0.14.0",
+]
+
+[project.scripts]
+plastron = "plastron.cli:cli"
+
+[tool.ruff.lint]
+fixable = ["ALL"]
+unfixable = []
+extend-select = [
+    "YTT", # flake8-2020
+    "S", # flake8-bandit
+    "B", # flake8-bugbear
+    "A", # flake8-builtins
+    "C4", # flake8-comprehensions
+    "T10", # flake8-debugger
+    "T20", # flake8-print
+    "SIM", # flake8-simplify
+    "PIE", # flake8-pie
+    "COM", # flake8-commas
+    "PYI", # flake8-pyi
+    "PT", # flake8-pytest-style
+    "I", # isort
+    "C90", # mccabe
+    "E", # pycodestyle
+    "W", # pycodestyle
+    "F", # pyflakes
+    "PGH", # pygrep-hooks
+    "UP", # pyupgrade
+    "RUF", # ruff
+    "TRY", # tryceratops
+    "N", # pep8-naming
+    "PERF", # Perflint
+]
+ignore = [
+    "C901",
+    "COM812",
+    "E731",
+    "PERF401",
+    "PYI024",
+    "RUF012",
+    "S108",
+    "S608",
+    "SIM108",
+    "TRY002",
+    "TRY003",
+    "TRY300",
+    "S105",
+    "SIM110",
+]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+skip-magic-trailing-comma = false
+line-ending = "lf"
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**/*" = ["S101"]
+
+[tool.ruff.lint.isort]
+known-first-party = ["plastron"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+asyncio_mode = "auto"
+markers = [
+    "scenario(name): specify which test scenario folder to use",
+    "plast_invoke_without_command: allows plastron cli to be invoked without command",
+    "db: initializes Tortoise with settings.TORTOISE_ORM from the scenario settings module"
+]
+
+[build-system]
+requires = ["hatchling>=1.27"]
+build-backend = "hatchling.build"
+
+[tool.hatch.version]
+path = "src/plastron/__init__.py"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/plastron"]

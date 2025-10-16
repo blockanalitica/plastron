@@ -1,0 +1,39 @@
+name: Tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    services:
+      db:
+        image: postgres:17.6-alpine
+        env:
+          POSTGRES_DB: plastron_db
+          POSTGRES_USER: plastron
+          POSTGRES_PASSWORD: postgres
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 2s
+          --health-timeout 5s
+          --health-retries 20
+        ports:
+          - 5400:5432
+    strategy:
+      matrix:
+        python-version: ["3.11", "3.12", "3.13"]
+    steps:
+      - uses: actions/checkout@v5
+      - name: Install uv
+        uses: astral-sh/setup-uv@v6
+        with:
+          python-version: ${{ matrix.python-version }}
+          enable-cache: true # persist uv’s cache between runs
+          activate-environment: true
+      - name: Sync deps
+        run: uv sync --locked --all-extras --dev
+      - name: Pytest
+        run: DB_CONN="postgres://plastron:postgres@localhost:5400/plastron_db" pytest tests/

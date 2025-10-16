@@ -1,0 +1,11 @@
+services:
+  db:
+    image: postgres:17.6
+    volumes:
+      - ./.data/db:/var/lib/postgresql/data:z
+    environment:
+      - POSTGRES_DB=plastron_db
+      - POSTGRES_USER=plastron
+      - POSTGRES_PASSWORD=postgres
+    ports:
+      - "5400:5432"
