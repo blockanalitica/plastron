@@ -17,7 +17,16 @@ jobs:
     runs-on: ubuntu-latest
     permissions: write-all
     steps:
-      - uses: actions/checkout@v4
+      - name: Setup | Checkout Repository on Release Branch
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }}
+          fetch-depth: 0
+
+      - name: Setup | Force release branch to be at workflow sha
+        run: |
+          git reset --hard ${{ github.sha }}
+
       - name: Semantic Release
         id: semrel
         uses: python-semantic-release/python-semantic-release@v9
