@@ -22,6 +22,7 @@ jobs:
         with:
           ref: ${{ github.ref_name }}
           fetch-depth: 0
+          token: ${{ secrets.GH_PAT }}
 
       - name: Setup | Force release branch to be at workflow sha
         run: |
