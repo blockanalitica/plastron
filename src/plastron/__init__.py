@@ -1,1 +1,3 @@
-__version__ = "0.0.1"  # x-release-please-version
+from importlib.metadata import version as _v
+
+__version__ = _v("plastron")

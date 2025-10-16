@@ -1,6 +1,6 @@
 [project]
 name = "tortoise-plastron"
-dynamic = ["version"]
+version = "0.0.1"
 description = "Schema migrations as code for Tortoise ORM."
 authors = [{name="tsifrer", email="3967564+tsifrer@users.noreply.github.com"}]
 license = "Apache-2.0"
@@ -113,9 +113,6 @@ markers = [
 [build-system]
 requires = ["hatchling>=1.27"]
 build-backend = "hatchling.build"
-
-[tool.hatch.version]
-path = "src/plastron/__init__.py"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/plastron"]
