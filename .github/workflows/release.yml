@@ -31,4 +31,4 @@ jobs:
         id: semrel
         uses: python-semantic-release/python-semantic-release@v9
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          github_token: ${{ secrets.GH_PAT }}
