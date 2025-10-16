@@ -18,7 +18,7 @@ jobs:
           enable-cache: true # persist uv’s cache between runs
           activate-environment: true
       - name: Sync deps
-        run: uv sync --locked --dev
+        run: uv sync --dev
       - name: Run ruff check
         run: uv run ruff check .
       - name: Run ruff format check
