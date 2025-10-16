@@ -115,7 +115,7 @@ requires = ["hatchling>=1.27"]
 build-backend = "hatchling.build"
 
 [tool.hatch.version]
-path = "src/plastron/__init__.py"
+path = "src/plastron/version.py"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/plastron"]

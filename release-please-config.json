@@ -1,8 +1,0 @@
-{
-  "packages": {
-    ".": {
-      "release-type": "python",
-      "extra-files": ["src/plastron/__init__.py"]
-    }
-  }
-}

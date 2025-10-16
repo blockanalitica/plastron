@@ -1,1 +1,3 @@
-__version__ = "0.0.1"  # x-release-please-version
+from plastron.version import __version__
+
+__all__ = ["__version__"]
