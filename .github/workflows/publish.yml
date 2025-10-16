@@ -1,5 +1,7 @@
 name: Publish
 
+concurrency: publish
+
 on:
   release:
     types:

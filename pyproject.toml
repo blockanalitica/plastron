@@ -119,3 +119,10 @@ path = "src/plastron/version.py"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/plastron"]
+
+[tool.semantic_release]
+branch = "main"
+changelog_file = "CHANGELOG.md"
+commit_parser = "conventional"
+version_variables = ["src/plastron/__init__.py:__version__"]
+commit_message = "chore(release): {version}"

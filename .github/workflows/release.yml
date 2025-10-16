@@ -1,5 +1,7 @@
 name: Release
 
+concurrency: release
+
 on:
   workflow_run:
     workflows:
@@ -15,7 +17,9 @@ jobs:
     runs-on: ubuntu-latest
     permissions: write-all
     steps:
-      - uses: googleapis/release-please-action@v4
-        id: release
+      - uses: actions/checkout@v4
+      - name: Semantic Release
+        id: semrel
+        uses: python-semantic-release/python-semantic-release@v9
         with:
-          config-file: .github/release-please-config.json
+          github_token: ${{ secrets.GITHUB_TOKEN }}
