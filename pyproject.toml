@@ -6,7 +6,7 @@ authors = [{name="tsifrer", email="3967564+tsifrer@users.noreply.github.com"}]
 license = "Apache-2.0"
 license-files = ["LICEN[CS]E*"]
 readme = "README.md"
-keywords = ["migrate", "Tortoise-ORM", "TortoiseORM", "plastron", "asyncpg", "postgres", "migration"]
+keywords = ["migrate", "Tortoise-ORM", "TortoiseORM", "plastron", "asyncpg", "postgres"]
 requires-python = ">=3.11"
 classifiers = [
     "Development Status :: 3 - Alpha",
