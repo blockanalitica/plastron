@@ -1,11 +1,29 @@
-name: Tests
+name: pytest
 
 on:
   push:
-    branches: [main]
+    branches:
+      - main
   pull_request:
 
 jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - name: Install uv
+        uses: astral-sh/setup-uv@v6
+        with:
+          python-version: 3.13
+          enable-cache: true # persist uv’s cache between runs
+          activate-environment: true
+      - name: Sync deps
+        run: uv sync --locked --dev
+      - name: Run ruff check
+        run: uv run ruff check .
+      - name: Run ruff format check
+        run: uv run ruff format . --check
+
   test:
     runs-on: ubuntu-latest
     services:

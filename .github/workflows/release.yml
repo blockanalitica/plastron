@@ -1,7 +1,11 @@
 name: Release
 
 on:
-  push:
+  workflow_run:
+    workflows:
+      - ci
+    types:
+      - completed
     branches:
       - main
 
@@ -15,22 +19,3 @@ jobs:
         id: release
         with:
           release-type: python
-
-      # Only build/publish when a new GitHub Release was created by release-please
-      - uses: actions/checkout@v4
-        if: ${{ steps.release.outputs.release_created }}
-
-      - name: Set up uv + Python
-        uses: astral-sh/setup-uv@v6
-        with:
-          python-version: "3.13"
-          activate-environment: true
-        if: ${{ steps.release.outputs.release_created }}
-      - name: Build
-        run: uv build
-        if: ${{ steps.release.outputs.release_created }}
-      - name: Publish to TestPyPI (OIDC)
-        uses: pypa/gh-action-pypi-publish@release/v1
-        with:
-          repository-url: https://test.pypi.org/legacy/
-        if: ${{ steps.release.outputs.release_created }}

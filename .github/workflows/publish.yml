@@ -1,0 +1,28 @@
+name: Publish
+
+on:
+  release:
+    types:
+      - published
+
+jobs:
+  publish:
+    name: Create Release
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: astral-sh/setup-uv@v6
+        with:
+          python-version: "3.13"
+          activate-environment: true
+      - name: Build
+        run: uv build
+      - name: Publish to TestPyPI (OIDC)
+        uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          repository-url: https://test.pypi.org/legacy/
+          skip-existing: true
