@@ -178,8 +178,7 @@ async def upgrade(ctx, fake):
 # TODO: tests also add revision support
 @cli.command(help="Downgrade to previous version.")
 @click.pass_context
-async def downgrade(ctx, in_transaction):
-    # TODO: in transaction?
+async def downgrade(ctx):
     async with db_connection(ctx.obj["config"]["tortoise"]):
         mig = await Migrator.init(migrations_folder=ctx.obj["config"]["location"])
         await mig.downgrade(
