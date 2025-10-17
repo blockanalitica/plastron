@@ -1,6 +1,15 @@
 # CHANGELOG
 
 
+## v0.0.3 (2025-10-17)
+
+### Bug Fixes
+
+- Downgrade had broken in_transaction parameter
+  ([#4](https://github.com/blockanalitica/plastron/pull/4),
+  [`06ef16c`](https://github.com/blockanalitica/plastron/commit/06ef16c397388b7696b64252dae1eb19f119eea7))
+
+
 ## v0.0.2 (2025-10-16)
 
 ### Bug Fixes
