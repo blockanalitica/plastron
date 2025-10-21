@@ -3,7 +3,7 @@
 [![PyPI version](https://img.shields.io/pypi/v/tortoise-plastron.svg?style=flat&color=blue)](https://pypi.org/project/tortoise-plastron/)
 [![Python versions](https://img.shields.io/pypi/pyversions/tortoise-plastron.svg?style=flat)](https://pypi.org/project/tortoise-plastron/)
 [![License](https://img.shields.io/github/license/blockanalitica/plastron.svg?style=flat)](./LICENSE)
-[![Build](https://github.com/blockanalitica/plastron/actions/workflows/tests.yml/badge.svg)](https://github.com/blockanalitica/plastron/actions)
+[![Build](https://github.com/blockanalitica/plastron/actions/workflows/ci.yml/badge.svg)](https://github.com/blockanalitica/plastron/actions)
 
 > A lightweight migration tool for [Tortoise ORM](https://tortoise.github.io/), inspired by Alembic and Django migrations.
 >
