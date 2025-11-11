@@ -171,11 +171,28 @@ jobs:
 
 ---
 
+## 🧠 Manual Operations
+
+Some operations require manual creation because automatic detection is either not yet implemented or not possible.
+
+### 🔁 Table Renaming
+
+If you rename a model’s table, automatic migration generation will incorrectly produce CreateTable and DropTable operations.
+To correctly handle this, you must manually add a RenameTable operation in your migration file:
+
+```python
+op.RenameTable("old_table_name", "new_table_name")
+```
+
+> **Note:** The table name may not always match the lowercased model name.
+> If your model’s `Meta` class defines a custom `table`, use that name instead.
+
+---
+
 ## ⚠️ Limitations (WIP)
 
 Currently unsupported features:
 
-- Table rename
 - Column rename
 - Foreign keys
 - One to one keys

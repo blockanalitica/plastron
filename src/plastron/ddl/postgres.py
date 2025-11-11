@@ -16,6 +16,7 @@ class PostgresDDL:
         'CREATE TABLE IF NOT EXISTS "{table_name}" (\n{columns}{constraints});'
     )
     DROP_TABLE = 'DROP TABLE IF EXISTS "{table_name}" CASCADE;'
+    RENAME_TABLE = 'ALTER TABLE "{old_table_name}" RENAME TO "{new_table_name}";'
     ADD_INDEX = (
         'CREATE INDEX{concurrently} IF NOT EXISTS "{index_name}" '
         'ON "{table_name}" {index_type}({column_names});'
@@ -158,6 +159,11 @@ class PostgresDDL:
 
     def drop_table(self, table_name):
         return self.DROP_TABLE.format(table_name=table_name)
+
+    def rename_table(self, old_table_name, new_table_name):
+        return self.RENAME_TABLE.format(
+            old_table_name=old_table_name, new_table_name=new_table_name
+        )
 
     # TODO: test concurrently
     def add_index(self, table, columns, index_type=None, concurrently=False):

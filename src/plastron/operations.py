@@ -1,4 +1,5 @@
 import logging
+from copy import deepcopy
 
 from tortoise import Model
 
@@ -72,6 +73,37 @@ class DropTable(Operation):
 
     def sql(self, models):
         return self.ddl.drop_table(self.name)
+
+
+# TODO: try to auto detect table renames. Currently this is just an operation
+# TODO: whenever FKs, M2Ms and others are added, test RenameTable with them as it might
+#       not work as expected because of how we recreate the model on rename
+class RenameTable(Operation):
+    def __init__(self, old_name, new_name):
+        super().__init__()
+        self.old_name = old_name
+        self.new_name = new_name
+
+    def _recreate_model(self, model):
+        attrs = deepcopy(model._meta.fields_map)
+
+        # Meta with db table name
+        class Meta:
+            table = self.new_name
+            unique_together = model._meta.unique_together
+            indexes = model._meta.indexes
+
+        attrs["Meta"] = Meta
+        new_model = type(self.new_name, (Model,), attrs)
+        return new_model
+
+    def update_model_structure(self, models):
+        model = self._recreate_model(models[self.old_name])
+        del models[self.old_name]
+        models[self.new_name] = model
+
+    def sql(self, models):
+        return self.ddl.rename_table(self.old_name, self.new_name)
 
 
 # TODO: test concurrently

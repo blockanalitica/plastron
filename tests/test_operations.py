@@ -11,6 +11,7 @@ from plastron.operations import (
     DropIndex,
     DropTable,
     DropUniqueTogether,
+    RenameTable,
 )
 
 
@@ -358,3 +359,35 @@ def test_drop_table_update_model_structure():
     models = {"users": DummyModel()}
     op.update_model_structure(models)
     assert "users" not in models
+
+
+def test_rename_table_sql():
+    op = RenameTable("dummymodel", "newdummymodel")
+
+    sql = op.sql({})
+    assert sql == 'ALTER TABLE "dummymodel" RENAME TO "newdummymodel";'
+
+
+def test_rename_table_update_model_structure():
+    class DummyModel(Model):
+        class Meta:
+            table = "dummytable"
+            unique_together = [("email", "phone")]
+            indexes = [("email", "phone")]
+
+    dummy_model = DummyModel()
+    op = RenameTable(dummy_model._meta.db_table, "newdummymodel")
+
+    models = {dummy_model._meta.db_table: dummy_model}
+    assert "dummytable" in models
+    assert "newdummymodel" not in models
+
+    op.update_model_structure(models)
+
+    assert "dummytable" not in models
+    assert "newdummymodel" in models
+    model = models["newdummymodel"]
+
+    assert model._meta.fields_map.keys() == dummy_model._meta.fields_map.keys()
+    assert model._meta.unique_together == dummy_model._meta.unique_together
+    assert model._meta.indexes == dummy_model._meta.indexes
