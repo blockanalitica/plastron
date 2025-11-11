@@ -38,10 +38,13 @@ async def _load_tortoise_config(tortoise_config_path):
         # If it's class based config, we need to handle 'mymodule.MyClass.TORTOISE_ORM'
         if len(splits) >= 3:
             config_path = ".".join(splits[:-2])
+        elif len(splits) == 2:
+            config_path = splits[0]
         else:
             raise ConfigError(
                 f"Can't find Tortoise config in module '{config_path}'"
             ) from None
+
         try:
             config_module = importlib.import_module(config_path)
         except ModuleNotFoundError as e:

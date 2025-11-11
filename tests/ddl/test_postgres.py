@@ -414,3 +414,9 @@ def test_drop_table():
     ddl = PostgresDDL()
     sql = ddl.drop_table("dummy")
     assert sql == 'DROP TABLE IF EXISTS "dummy" CASCADE;'
+
+
+def test_rename_table():
+    ddl = PostgresDDL()
+    sql = ddl.rename_table("old_dummy", "new_dummy")
+    assert sql == 'ALTER TABLE "old_dummy" RENAME TO "new_dummy";'
