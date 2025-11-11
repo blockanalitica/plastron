@@ -2,6 +2,14 @@
 
 <!-- version list -->
 
+## v0.1.1 (2025-11-11)
+
+### Bug Fixes
+
+- Wrong release version for pypi
+  ([`d3ccdeb`](https://github.com/blockanalitica/plastron/commit/d3ccdebff6e7b43cd52538ad982d534c0901b79d))
+
+
 ## v0.1.0 (2025-11-11)
 
 ### Chores
