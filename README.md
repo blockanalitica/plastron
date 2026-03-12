@@ -9,6 +9,12 @@
 >
 > [Plastron (Wikipedia)](https://en.wikipedia.org/wiki/Turtle_shell#Plastron)
 
+> [!WARNING]
+> This project is archived and no longer maintained.
+>
+> Plastron has been superseded by Tortoise ORM's built-in migration system. For new projects and ongoing maintenance, please use the official Tortoise ORM migrations instead:
+> https://tortoise.github.io/migration.html
+
 ## 🚀 Introduction
 
 **Plastron** is a lightweight database migration tool designed specifically for **TortoiseORM**. It aims to bring the familiarity of Alembic-style (or Django-style) migrations to the Tortoise ecosystem — clean, simple, and minimal.
